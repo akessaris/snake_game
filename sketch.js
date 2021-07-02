@@ -1,4 +1,5 @@
 let snake;
+let food;
 let isGameOver = false;
 let lastKeyPressed = 39; // RIGHT_ARROW
 const canvasSize = 500;
@@ -9,6 +10,7 @@ const cell = 20;
 function setup() {
   createCanvas(canvasSize, canvasSize);
   snake = new Snake();
+  food = new Food();
 }
 
 // Runs every frame
@@ -16,6 +18,7 @@ function draw () {
   if (!isGameOver) {
     background(0);
     snake.draw();
+    food.draw();
   } else {
     showGameOver();
   }
@@ -42,10 +45,10 @@ function keyPressed() {
 }
 
 function showGameOver () {
+  fill('red');
   textSize(24);
   text('Game Over', canvasSize/2, canvasSize/2);
-  textAlign('center')
-  fill('white');
+  textAlign('center');
 }
 
 function getRandCoord () {

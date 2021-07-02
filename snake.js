@@ -6,6 +6,7 @@ class Snake {
   }
 
   draw () {
+    fill(255);
     square(this.x, this.y, cell); // Draw square to canvas
     this.moveSnake(); // Move snake according to last key pressed
     this.isOutOfBounds(); // Check if out of bounds
