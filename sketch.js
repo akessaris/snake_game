@@ -1,25 +1,21 @@
-let x;
-let y;
-let size = 20;
-let velocity = 5;
-
+let snake;
 let isGameOver = false;
-let lastKeyPressed;
-
+let lastKeyPressed = 39; // RIGHT_ARROW
 const canvasSize = 500;
+const cell = 20;
+
 
 // Runs on start
 function setup() {
   createCanvas(canvasSize, canvasSize);
-  reset();
+  snake = new Snake();
 }
 
 // Runs every frame
 function draw () {
   if (!isGameOver) {
     background(0);
-    drawDot();
-    drawSnake();
+    snake.draw();
   } else {
     showGameOver();
   }
@@ -52,45 +48,14 @@ function showGameOver () {
   fill('white');
 }
 
-function drawDot () {
-
-}
-
-function drawSnake() {
-  // Draw square to canvas
-  square(x, y, size);
-
-  // Move snake according to last key pressed
-  if (lastKeyPressed === LEFT_ARROW) {
-    x = x - velocity;
-  } else if (lastKeyPressed === RIGHT_ARROW) {
-    x = x + velocity;
-  } else if (lastKeyPressed === UP_ARROW) {
-    y = y - velocity;
-  } else if (lastKeyPressed === DOWN_ARROW) {
-    y = y + velocity;
-  }
-
-  // Check if out of bounds
-  isOutOfBounds();
+function getRandCoord () {
+  return floor(random(5, (canvasSize - cell)/5)) * 5;
 }
 
 // Reset game state
 function reset () {
-  x = 0;
-  y = 0;
   lastKeyPressed = RIGHT_ARROW;
   isGameOver = false;
+  snake.reset();
 }
 
-// Check if snake has hit edge of canvas
-function isOutOfBounds () {
-  if (
-    x >= canvasSize - size/2 - velocity ||
-    x < 0 ||
-    y >= canvasSize - size/2 - velocity||
-    y < 0
-  ) {
-    isGameOver = true;
-  }
-}
