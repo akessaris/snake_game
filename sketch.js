@@ -1,14 +1,13 @@
 let snake;
 let food;
 let isGameOver = false;
-let lastKeyPressed = 39; // RIGHT_ARROW
-const canvasSize = 500;
+const canvasSize = 600;
 const cell = 20;
-
 
 // Runs on start
 function setup() {
   createCanvas(canvasSize, canvasSize);
+  frameRate(10);
   snake = new Snake();
   food = new Food();
 }
@@ -17,30 +16,29 @@ function setup() {
 function draw () {
   if (!isGameOver) {
     background(0);
+    if (snake.eat(food.pos)) {
+      food.reset();
+      snake.grow();
+    }
     snake.draw();
     food.draw();
   } else {
     showGameOver();
   }
-  if (isGameOver && (lastKeyPressed === ENTER || lastKeyPressed === RETURN)) {
-    reset();
-  }
 }
 
 // Automatically gets called when key is pressed
 function keyPressed() {
-  if (
-    (
-      keyCode === LEFT_ARROW ||
-      keyCode === RIGHT_ARROW ||
-      keyCode === UP_ARROW ||
-      keyCode === DOWN_ARROW
-    ) ||
-    (
-      isGameOver && (keyCode === RETURN || keyCode === ENTER)
-    )
-  ) {
-    lastKeyPressed = keyCode;
+  if (keyCode === LEFT_ARROW) {
+    snake.changeDirection(-1, 0);
+  } else if (keyCode === RIGHT_ARROW) {
+    snake.changeDirection(1, 0);
+  } else if (keyCode === UP_ARROW) {
+    snake.changeDirection(0, -1);
+  } else if (keyCode === DOWN_ARROW) {
+    snake.changeDirection(0, 1);
+  } else if (isGameOver && (keyCode === RETURN || keyCode === ENTER)) {
+    reset();
   }
 }
 
@@ -51,13 +49,8 @@ function showGameOver () {
   textAlign('center');
 }
 
-function getRandCoord () {
-  return floor(random(5, (canvasSize - cell)/5)) * 5;
-}
-
 // Reset game state
 function reset () {
-  lastKeyPressed = RIGHT_ARROW;
   isGameOver = false;
   snake.reset();
 }

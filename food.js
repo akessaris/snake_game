@@ -5,7 +5,7 @@ class Food {
 
   draw () {
     fill('green');
-    square(this.pos.x, this.pos.y, cell); // Draw square to canvas
+    square(this.pos.x, this.pos.y, cell, cell); // Draw square to canvas
   }
 
   reset () {
@@ -13,6 +13,8 @@ class Food {
   }
 
   getPosition () {
-    return createVector(floor(random(canvasSize/2)), floor(random(canvasSize/2)));
+    const x = floor(random(cell, (canvasSize - cell)/cell)) * cell;
+    const y = floor(random(cell, (canvasSize - cell)/cell)) * cell;
+    return createVector(x, y);
   }
 }
