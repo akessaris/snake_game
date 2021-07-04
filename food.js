@@ -31,6 +31,6 @@ class Food {
   }
 
   getPosition () {
-    return floor(random(cell, (canvasSize - cell)/cell)) * cell;
+    return floor(random(1, (canvasSize - cell)/cell)) * cell;
   }
 }
