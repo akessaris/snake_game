@@ -7,7 +7,6 @@ class Snake {
 
   draw () {
     fill(255);
-    square(this.body[0].x, this.body[0].y, cell); // Draw square to canvas
     this.moveSnake();
     if (this.isOutOfBounds()) {
       isGameOver = true;
@@ -20,22 +19,37 @@ class Snake {
   }
 
   moveSnake() {
-    const [head] = this.body;
+    const head = this.body[this.body.length - 1].copy();
+
+    this.body.shift();
+
     head.x += this.xVelocity*cell;
     head.y += this.yVelocity*cell;
+
+    this.body.push(head);
+
+    this.show();
   }
 
-  eat (food) {
-    return dist(this.body[0].x, this.body[0].y, food.x, food.y) <= 1;
+  show () {
+    for (let i = this.body.length - 1; i >= 0; i--) {
+      square(this.body[i].x, this.body[i].y, cell); // Draw square to canvas
+    }
+  }
+
+  eat ({ x: foodX, y: foodY }) {
+    const { x: headX, y: headY } = this.body[this.body.length - 1].copy();
+    return dist(headX, headY, foodX, foodY) <= 1;
   }
 
   grow () {
-    console.log('grow');
+    const head = this.body[this.body.length - 1].copy();
+    this.body.push(head);
   }
 
   // Check if snake has hit edge of canvas
   isOutOfBounds () {
-    const [head] = this.body;
+    const head = this.body[this.body.length - 1];
     return (
       head.x > canvasSize - cell ||
       head.x <= cell/2 ||
