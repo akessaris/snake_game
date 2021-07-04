@@ -54,9 +54,13 @@ function showGameOver (scoreboard) {
   const fontSize = 20;
   textSize(fontSize);
   textAlign('center');
-  text('Game Over', canvasSize/2, canvasSize/2);
-  text(`You scored: ${scoreboard.score}`, canvasSize/2, canvasSize/2 + fontSize*2);
-  text(`High score: ${scoreboard.highScore}`, canvasSize/2, canvasSize/2 + fontSize*3);
+  
+  text('Game Over', canvasSize/2, canvasSize/2 - fontSize*2);
+  text(`You scored: ${scoreboard.score}`, canvasSize/2, canvasSize/2);
+  text(`High score: ${scoreboard.highScore}`, canvasSize/2, canvasSize/2 + fontSize);
+
+  textSize(15);
+  text('Hit ENTER to replay', canvasSize/2, canvasSize/2 + fontSize*3);
 }
 
 // Reset game state
