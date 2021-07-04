@@ -20,7 +20,7 @@ function draw () {
   if (!isGameOver) {
     background(0);
     if (snake.eat(food.pos)) {
-      food.reset();
+      food.reset(snake.body);
       snake.grow();
       scoreboard.addPoint();
     }
