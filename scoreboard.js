@@ -1,6 +1,7 @@
 class Scoreboard {
   constructor() {
     this.score = 0;
+    this.highScore = 0;
   }
 
   draw () {
@@ -12,6 +13,10 @@ class Scoreboard {
 
   addPoint () {
     this.score++;
+  }
+
+  setHighScore () {
+    if (this.score > this.highScore) this.highScore = this.score;
   }
 
   reset () {

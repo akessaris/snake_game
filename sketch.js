@@ -30,7 +30,8 @@ function draw () {
 
     isGameOver = snake.isGameOver();
   } else {
-    showGameOver(scoreboard.score);
+    scoreboard.setHighScore();
+    showGameOver(scoreboard);
   }
 }
 
@@ -49,11 +50,13 @@ function keyPressed() {
   }
 }
 
-function showGameOver (score) {
-  textSize(24);
+function showGameOver (scoreboard) {
+  const fontSize = 20;
+  textSize(fontSize);
   textAlign('center');
   text('Game Over', canvasSize/2, canvasSize/2);
-  text(`You scored: ${score}`, canvasSize/2, canvasSize/2 + 24);
+  text(`You scored: ${scoreboard.score}`, canvasSize/2, canvasSize/2 + fontSize*2);
+  text(`High score: ${scoreboard.highScore}`, canvasSize/2, canvasSize/2 + fontSize*3);
 }
 
 // Reset game state
