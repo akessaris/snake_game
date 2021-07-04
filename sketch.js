@@ -24,8 +24,8 @@ function draw () {
       snake.grow();
       scoreboard.addPoint();
     }
-    snake.draw();
     food.draw();
+    snake.draw();
     scoreboard.draw();
 
     isGameOver = snake.isGameOver();

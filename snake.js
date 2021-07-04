@@ -6,19 +6,6 @@ class Snake {
   }
 
   draw () {
-    fill(255);
-    this.moveSnake();
-  }
-
-  changeDirection (xVel, yVel) {
-    const goingOppositeDirection = (xVel && this.xVelocity) || (yVel && this.yVelocity);
-    if (!goingOppositeDirection) {
-      this.xVelocity = xVel;
-      this.yVelocity = yVel;
-    }
-  }
-
-  moveSnake() {
     const head = this.body[this.body.length - 1].copy();
 
     this.body.shift();
@@ -31,14 +18,24 @@ class Snake {
     this.show();
   }
 
+  changeDirection (xVel, yVel) {
+    const goingOppositeDirection = (xVel && this.xVelocity) || (yVel && this.yVelocity);
+    if (!goingOppositeDirection) {
+      this.xVelocity = xVel;
+      this.yVelocity = yVel;
+    }
+  }
+
   show () {
+    fill(255);
+    noStroke();
     for (let i = this.body.length - 1; i >= 0; i--) {
       square(this.body[i].x, this.body[i].y, cell); // Draw square to canvas
     }
   }
 
   eat ({ x: foodX, y: foodY }) {
-    const { x: headX, y: headY } = this.body[this.body.length - 1].copy();
+    const { x: headX, y: headY } = this.body[this.body.length - 1];
     return dist(headX, headY, foodX, foodY) <= 1;
   }
 
@@ -62,7 +59,7 @@ class Snake {
     const head = this.body[this.body.length - 1];
     return (
       head.x > canvasSize - cell ||
-      head.x <= cell/2 ||
+      head.x < 0 ||
       head.y > canvasSize - cell ||
       head.y < 0
     );
