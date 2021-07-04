@@ -8,9 +8,6 @@ class Snake {
   draw () {
     fill(255);
     this.moveSnake();
-    if (this.isOutOfBounds()) {
-      isGameOver = true;
-    }
   }
 
   changeDirection (xVel, yVel) {
@@ -48,6 +45,16 @@ class Snake {
   grow () {
     const head = this.body[this.body.length - 1].copy();
     this.body.push(head);
+  }
+
+  isGameOver () {
+    return this.hasEatenSelf() || this.isOutOfBounds();
+  }
+
+  hasEatenSelf () {
+    return this.body.slice(0, this.body.length - 2).some((part) => {
+      return this.eat(part);
+    });
   }
 
   // Check if snake has hit edge of canvas

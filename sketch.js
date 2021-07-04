@@ -27,6 +27,8 @@ function draw () {
     snake.draw();
     food.draw();
     scoreboard.draw();
+
+    isGameOver = snake.isGameOver();
   } else {
     showGameOver(scoreboard.score);
   }
