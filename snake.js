@@ -14,8 +14,11 @@ class Snake {
   }
 
   changeDirection (xVel, yVel) {
-    this.xVelocity = xVel;
-    this.yVelocity = yVel;
+    const goingOppositeDirection = (xVel && this.xVelocity) || (yVel && this.yVelocity);
+    if (!goingOppositeDirection) {
+      this.xVelocity = xVel;
+      this.yVelocity = yVel;
+    }
   }
 
   moveSnake() {
